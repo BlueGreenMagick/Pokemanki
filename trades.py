@@ -111,51 +111,30 @@ class Trades:
         i = 0
         f = self.f
         if f:
-            if os.path.exists("%s/_tagmon.json" % self.mediafolder):
-                deckmonlist = get_json("_tagmon.json", [])
-                sorteddeckmonlist = list(reversed(deckmonlist))
-                noeggslist = []
-                for item in sorteddeckmonlist:
-                    if int(item[2]) >= 5:
-                        noeggslist.append(item)
-                deckmons = []
-                for item in noeggslist:
-                    for thing in deckmons:
-                        if item[1] == thing[1]:
-                            break
-                    else:
-                        deckmons.append(item)
-                deckmonlist = deckmons
-            else:
-                nopokemon = QMessageBox()
-                nopokemon.setWindowTitle("Pokemanki")
-                nopokemon.setText(
-                    "Please open the Stats window to get your Pokémon.")
-                nopokemon.exec_()
-                return
+            deckmonlist = get_json("_tagmon.json", None)
         else:
             deckmonlist = get_json("_pokemanki.json", None)
-            if deckmonlist:
-                sorteddeckmonlist = list(reversed(deckmonlist))
-                noeggslist = []
-                for item in sorteddeckmonlist:
-                    if int(item[2]) >= 5:
-                        noeggslist.append(item)
-                deckmons = []
-                for item in noeggslist:
-                    for thing in deckmons:
-                        if item[1] == thing[1]:
-                            break
-                    else:
-                        deckmons.append(item)
-                deckmonlist = deckmons
-            else:
-                nopokemon = QMessageBox()
-                nopokemon.setWindowTitle("Pokemanki")
-                nopokemon.setText(
-                    "Please open the Stats window to get your Pokémon.")
-                nopokemon.exec_()
-                return
+        if deckmonlist:
+            sorteddeckmonlist = list(reversed(deckmonlist))
+            noeggslist = []
+            for item in sorteddeckmonlist:
+                if int(item[2]) >= 5:
+                    noeggslist.append(item)
+            deckmons = []
+            for item in noeggslist:
+                for thing in deckmons:
+                    if item[1] == thing[1]:
+                        break
+                else:
+                    deckmons.append(item)
+            deckmonlist = deckmons
+        else:
+            nopokemon = QMessageBox()
+            nopokemon.setWindowTitle("Pokemanki")
+            nopokemon.setText(
+                "Please open the Stats window to get your Pokémon.")
+            nopokemon.exec_()
+            return
         possiblehaveslist = []
         while i < 3:
             randno = random.randint(0, len(deckmonlist)-1)
